@@ -3,7 +3,7 @@ Prototype for GMAP377
 
 Currently just a topdown player controller w/ camera that follows the player
 
-Type a word and it appears above the player's head. Enter to cast the spell. Backspace deletes the whole word. The 100 most common english nouns are the current accepted word list (below).
+Move with arrow keys. Type a word and it appears above the player's head. Enter to cast the spell. Backspace deletes the whole word. The 100 most common english nouns are the current accepted word list (below).
 
 Currently, feedback is shown in the console. Either "Cast Succesful!" or "Cast Fail!"
 
