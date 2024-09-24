@@ -31,10 +31,10 @@ public class TypingController : MonoBehaviour
                     // placeholders for now, should fire a particle or decrease health or whatever
                     if (wordCompare(buffer))
                     {
-                        print("Success!");
+                        print("Cast Successful!");
                     } else
                     {
-                        print("Fail!");
+                        print("Cast Fail!");
                     }
                     buffer = "";
                     break;
@@ -50,7 +50,6 @@ public class TypingController : MonoBehaviour
             }
         }
         DisplayText(buffer);
-        print("buffer is " + buffer);
     }
 
     private bool wordCompare(string word)
