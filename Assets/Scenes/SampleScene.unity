@@ -766,8 +766,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c2717fdf0e944c844bedd4b4f4599b8b, type: 2}
   - {fileID: 11400000, guid: e649dc3a467e26048a9be11a0d0d26a9, type: 2}
   - {fileID: 11400000, guid: 3579c8f49545cb24a8d6cc895abfe8d0, type: 2}
-  spawnPos: {x: 0, y: 0, z: 0}
-  enemyParent: {fileID: 0}
+  enemyPrefab: {fileID: 211828437710483745, guid: 6c3071a178f25714a8bf834237e577c0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
