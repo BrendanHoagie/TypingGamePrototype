@@ -1,26 +1,17 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 public class EnemyMaker : MonoBehaviour
 {
-    public List<Wizards> squares;
-    public List<Wizards> triangles;
+    public List<Wizards> squares;  
+    public List<Wizards> triangles; 
 
-    private Wizards currentSquare;
-    private Wizards currentTriangle;
-
-    [SerializeField] private Vector3 spawnPos = new Vector3(0, 0, 0);
-    [SerializeField] private Transform enemyParent;
+    private Wizards currentSquare;  
+    private Wizards currentTriangle; 
 
     private Dictionary<string, GameObject> enemyCombinations = new Dictionary<string, GameObject>();
-
-    void Start()
-    {
-        GenerateRandomCombination();
-    }
+    [SerializeField] private GameObject enemyPrefab;
 
     void Update()
     {
@@ -30,87 +21,41 @@ public class EnemyMaker : MonoBehaviour
         }
     }
 
-    private void GenerateRandomCombination()
+    public void GenerateRandomCombination()
     {
-        currentSquare = squares[UnityEngine.Random.Range(0, squares.Count)];
-        currentTriangle = triangles[UnityEngine.Random.Range(0, triangles.Count)];
-    }
-
-    public bool CheckCombination(string input)
-    {
-        foreach (string squareWord in currentSquare.Word)
-        {
-            foreach (string triangleWord in currentTriangle.Word)
-            {
-                string correctCombination = squareWord + triangleWord;
-
-                if (input == correctCombination)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-
+        currentSquare = squares[Random.Range(0, squares.Count)];
+        currentTriangle = triangles[Random.Range(0, triangles.Count)];
     }
 
     public void SpawnEnemy()
     {
         GenerateRandomCombination();
 
-        // Create a parent GameObject for the enemy
-        GameObject enemy = new GameObject("Enemy");
-        enemy.transform.position = spawnPos;
+        GameObject currentEnemy = Instantiate(enemyPrefab);
+        currentEnemy.transform.position = Vector3.zero; 
 
-        // Set parent if provided
-        if (enemyParent != null)
-        {
-            enemy.transform.parent = enemyParent;
-        }
+        SetupShapes(currentEnemy);
+        StoreCombination(currentEnemy);
 
-        // Spawn the square and triangle as children of the enemy
-        GameObject squareObject = CreateShapeObject(currentSquare, enemy.transform);
-        GameObject triangleObject = CreateShapeObject(currentTriangle, enemy.transform);
-        StoreCombination(enemy);
-
-        // Delete this later 
-        Debug.Log("Enemy spawned with square and triangle!");
-        foreach (string squareWord in currentSquare.Word)
-        {
-            foreach (string triangleWord in currentTriangle.Word)
-            {
-                string correctCombination = squareWord + triangleWord;
-                print(correctCombination);
-            }
-        }
-
+        Debug.Log("Enemy spawned with dynamically set square and triangle!");
     }
 
-    // Helper method to create the shape GameObject
-    private GameObject CreateShapeObject(Wizards shapeData, Transform parent)
+    private void SetupShapes(GameObject enemy)
     {
-        GameObject shapeObject = new GameObject(shapeData.ShapeType.ToString());
-        shapeObject.transform.parent = parent;
+        Transform squareTransform = enemy.transform.Find("Square");
+        Transform triangleTransform = enemy.transform.Find("Triangle");
 
-        SpriteRenderer renderer = shapeObject.AddComponent<SpriteRenderer>();
-        renderer.sprite = shapeData.Shape;
-        renderer.color = shapeData.Color;
+        SpriteRenderer squareRenderer = squareTransform.GetComponent<SpriteRenderer>();
+        squareRenderer.sprite = currentSquare.Shape;
+        squareRenderer.color = currentSquare.Color;
 
-        if (shapeData.ShapeType == ShapeType.Square)
-        {
-            shapeObject.transform.localPosition = Vector3.zero;
-        }
-        else if (shapeData.ShapeType == ShapeType.Triangle)
-        {
-            SpriteRenderer squareRenderer = parent.Find("Square").GetComponent<SpriteRenderer>();
-            float squareHeight = squareRenderer.bounds.size.y;
+        SpriteRenderer triangleRenderer = triangleTransform.GetComponent<SpriteRenderer>();
+        triangleRenderer.sprite = currentTriangle.Shape;
+        triangleRenderer.color = currentTriangle.Color;
 
-            float triangleHeight = renderer.bounds.size.y;
-            shapeObject.transform.localPosition = new Vector3(0, squareHeight / 2, 0);
-        }
-
-        return shapeObject;
+        // Adjust triangle position to be above the square
+        float squareHeight = squareRenderer.bounds.size.y;
+        triangleTransform.localPosition = new Vector3(0, squareHeight / 2, 0);
     }
 
     private void StoreCombination(GameObject enemy)
@@ -120,7 +65,7 @@ public class EnemyMaker : MonoBehaviour
             foreach (string triangleWord in currentTriangle.Word)
             {
                 string correctCombination = squareWord + triangleWord;
-                enemyCombinations[correctCombination] = enemy; // Store the enemy with its combination
+                enemyCombinations[correctCombination] = enemy; 
             }
         }
     }
@@ -129,8 +74,8 @@ public class EnemyMaker : MonoBehaviour
     {
         if (enemyCombinations.TryGetValue(combination, out GameObject enemyToRemove))
         {
-            Destroy(enemyToRemove);
-            enemyCombinations.Remove(combination); // Remove from dictionary after deletion
+            Destroy(enemyToRemove);  
+            enemyCombinations.Remove(combination); 
             Debug.Log("Enemy with combination " + combination + " destroyed!");
         }
         else
