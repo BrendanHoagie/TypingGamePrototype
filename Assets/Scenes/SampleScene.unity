@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 5
   spell: {fileID: 286143909414172042, guid: 469baf230d68b1e439ffceaf1ca96865, type: 3}
+  enemyMaker: {fileID: 1122204360}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +714,59 @@ Transform:
   - {fileID: 769402961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1122204357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122204359}
+  - component: {fileID: 1122204360}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122204359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122204357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.509798, y: 0.8404439, z: 0.06991655}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122204360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122204357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f423d08d589c41d4b973b5adc631a0ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  squares:
+  - {fileID: 11400000, guid: e8b1cc91bd35c034f93dd3e4961ee2e5, type: 2}
+  - {fileID: 11400000, guid: c1e89f3bd8cc967428e6cee555ffbd2c, type: 2}
+  - {fileID: 11400000, guid: 8a1a1fdad1160374f9708656a3e249fa, type: 2}
+  triangles:
+  - {fileID: 11400000, guid: c2717fdf0e944c844bedd4b4f4599b8b, type: 2}
+  - {fileID: 11400000, guid: e649dc3a467e26048a9be11a0d0d26a9, type: 2}
+  - {fileID: 11400000, guid: 3579c8f49545cb24a8d6cc895abfe8d0, type: 2}
+  enemyPrefab: {fileID: 211828437710483745, guid: 6c3071a178f25714a8bf834237e577c0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -722,3 +776,4 @@ SceneRoots:
   - {fileID: 479974365}
   - {fileID: 713566364}
   - {fileID: 821703347}
+  - {fileID: 1122204359}

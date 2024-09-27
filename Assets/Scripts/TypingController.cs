@@ -7,17 +7,12 @@ using UnityEngine;
 public class TypingController : MonoBehaviour
 {
     public float distance = 0f;
-    private string[] words = { "time", "year", "people", "way", "day", "man", "thing", "woman", "life", "child", "world", "school", "state", "family", "student", "group", "country", "problem", "hand", "part", "place", "case", "week", "company", "system", "program", "question", "work", "government", "number", "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact", "month", "lot", "right", "study", "book", "eye", "job", "word", "business", "issue", "side", "kind", "head", "house", "service", "friend", "father", "power", "hour", "game", "line", "end", "member", "law", "car", "city", "community", "name", "president", "team", "minute", "idea", "kid", "body", "information", "back", "parent", "face", "others", "level", "office", "door", "health", "person", "art", "war", "history", "party", "result", "change", "morning", "reason", "research", "girl", "guy", "moment", "air", "teacher", "force", "education" };
+    //private string[] words = { "time", "year", "people", "way", "day", "man", "thing", "woman", "life", "child", "world", "school", "state", "family", "student", "group", "country", "problem", "hand", "part", "place", "case", "week", "company", "system", "program", "question", "work", "government", "number", "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact", "month", "lot", "right", "study", "book", "eye", "job", "word", "business", "issue", "side", "kind", "head", "house", "service", "friend", "father", "power", "hour", "game", "line", "end", "member", "law", "car", "city", "community", "name", "president", "team", "minute", "idea", "kid", "body", "information", "back", "parent", "face", "others", "level", "office", "door", "health", "person", "art", "war", "history", "party", "result", "change", "morning", "reason", "research", "girl", "guy", "moment", "air", "teacher", "force", "education" };
     private string buffer = "";
     [SerializeField] private GameObject spell;
     private GameObject floatingText = null;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private EnemyMaker enemyMaker;
 
-    // Update is called once per frame
     void Update()
     {
         foreach (char c in Input.inputString)
@@ -27,15 +22,8 @@ public class TypingController : MonoBehaviour
                 // cast
                 case '\n':
                 case '\r':
-
                     // placeholders for now, should fire a particle or decrease health or whatever
-                    if (wordCompare(buffer))
-                    {
-                        print("Cast Successful!");
-                    } else
-                    {
-                        print("Cast Fail!");
-                    }
+                    enemyMaker.RemoveCombinedObject(buffer);
                     buffer = "";
                     break;
 
@@ -50,15 +38,6 @@ public class TypingController : MonoBehaviour
             }
         }
         DisplayText(buffer);
-    }
-
-    private bool wordCompare(string word)
-    {
-        foreach(string curWord in words)
-        {
-            if(word == curWord) return true;
-        }
-        return false;
     }
 
     void DisplayText(string text)
