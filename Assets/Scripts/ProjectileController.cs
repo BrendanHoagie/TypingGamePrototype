@@ -12,6 +12,11 @@ public class ProjectileController : MonoBehaviour
         incantation = newIncantation;
     }
 
+    public string GetIncantation()
+    {
+        return incantation;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -30,8 +35,8 @@ public class ProjectileController : MonoBehaviour
              * I think it makes sense lore wise as well, the robes is the armor they're wearing (heavy chain for a bolt, common robes for a blast, whatever)
              * which would be somewhat standard-issue, and the hat tells you what element they are. Decent argument either way, something to discuss
             */
-
-            GameObject.Find("EnemyManager").GetComponent<EnemyMaker>().RemoveCombinedObject(incantation);
+            
+            //GameObject.Find("EnemyManager").GetComponent<WizardMaker>().RemoveCombinedObject(incantation);
             Destroy(gameObject);
         }
         if (collision.gameObject.tag == "Wall")

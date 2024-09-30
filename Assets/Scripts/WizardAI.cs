@@ -6,6 +6,7 @@ using UnityEngine;
 public class WizardAI : MonoBehaviour
 {
     public float moveSpeed = 2f;
+    public List<string> correctCombination = new List<string>();
     private Transform target;
     void Start()
     {
@@ -20,12 +21,30 @@ public class WizardAI : MonoBehaviour
         }
     }
 
+    public void setCorrectCombination(string input)
+    {
+        correctCombination.Add(input);
+    }
+
+    public void HitBySpell(string input)
+    {
+        if (correctCombination.Contains(input))
+        {
+            Destroy(gameObject);
+            Debug.Log("Enemy with combination " + input + " destroyed!");
+        }
+    }
+
     // currently a 1-hit kill
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+        } 
+        if (collision.gameObject.tag == "Spell")
+        {
+            HitBySpell(collision.gameObject.GetComponent<ProjectileController>().GetIncantation());
         }
     }
 }

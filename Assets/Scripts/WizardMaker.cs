@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class EnemyMaker : MonoBehaviour
+public class WizardMaker : MonoBehaviour
 {
     public List<Wizards> squares;  
     public List<Wizards> triangles; 
@@ -10,7 +10,7 @@ public class EnemyMaker : MonoBehaviour
     private Wizards currentSquare;  
     private Wizards currentTriangle; 
 
-    private Dictionary<string, GameObject> enemyCombinations = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> wizardCombinations = new Dictionary<string, GameObject>();
     private Dictionary<string, bool> validCombinations = new Dictionary<string, bool>();
     [SerializeField] private GameObject enemyPrefab;
 
@@ -45,27 +45,27 @@ public class EnemyMaker : MonoBehaviour
         curTime += Time.deltaTime;
         if (curTime > spawnTime)
         {
-            SpawnEnemy();
+            SpawnWizard();
             curTime = 0f;
         }
 
         // for debugging
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            SpawnEnemy();
+            SpawnWizard();
         }
     }
 
 
-    public void SpawnEnemy()
+    public void SpawnWizard()
     {
         GenerateRandomCombination();
 
-        GameObject currentEnemy = Instantiate(enemyPrefab);
-        currentEnemy.transform.position = Vector3.zero; 
+        GameObject currentWizard = Instantiate(enemyPrefab);
+        currentWizard.transform.position = Vector3.zero; 
 
-        SetupShapes(currentEnemy);
-        StoreCombination(currentEnemy);
+        SetupShapes(currentWizard);
+        StoreCombination(currentWizard);
 
         Debug.Log("Enemy spawned with dynamically set square and triangle!");
     }
@@ -101,18 +101,19 @@ public class EnemyMaker : MonoBehaviour
             foreach (string triangleWord in currentTriangle.Word)
             {
                 string correctCombination = squareWord + triangleWord;
+                enemy.GetComponent<WizardAI>().setCorrectCombination(correctCombination);
                 Debug.Log(correctCombination);
-                enemyCombinations[correctCombination] = enemy; 
+                wizardCombinations[correctCombination] = enemy; 
             }
         }
     }
 
     public void RemoveCombinedObject(string combination)
     {
-        if (enemyCombinations.TryGetValue(combination, out GameObject enemyToRemove))
+        if (wizardCombinations.TryGetValue(combination, out GameObject enemyToRemove))
         {
             Destroy(enemyToRemove);  
-            enemyCombinations.Remove(combination); 
+            wizardCombinations.Remove(combination); 
             Debug.Log("Enemy with combination " + combination + " destroyed!");
         }
         else
