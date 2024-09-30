@@ -803,7 +803,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e649dc3a467e26048a9be11a0d0d26a9, type: 2}
   - {fileID: 11400000, guid: 3579c8f49545cb24a8d6cc895abfe8d0, type: 2}
   enemyPrefab: {fileID: 211828437710483745, guid: 6c3071a178f25714a8bf834237e577c0, type: 3}
-  spawnTime: 100000
+  spawnTime: 5
 --- !u!1 &1210183099
 GameObject:
   m_ObjectHideFlags: 0
