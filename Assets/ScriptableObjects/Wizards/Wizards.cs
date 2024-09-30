@@ -6,6 +6,7 @@ public enum ShapeType {Square, Triangle}
 [CreateAssetMenu]
 public class Wizards : ScriptableObject
 {
+
     [SerializeField]
     private Sprite _shape;
     public Sprite Shape { get => _shape; }
@@ -21,4 +22,6 @@ public class Wizards : ScriptableObject
     [SerializeField]
     private ShapeType _shapeType;
     public ShapeType ShapeType { get => _shapeType; }
+
+
 }

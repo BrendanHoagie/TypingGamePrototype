@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5982047458149829966}
   - component: {fileID: 5372757777297044393}
-  - component: {fileID: 6200237433982091888}
-  - component: {fileID: -8710382555524505888}
+  - component: {fileID: 4759406457818711976}
+  - component: {fileID: 1251195007403376681}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +48,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 250
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -62,9 +62,9 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!60 &6200237433982091888
-PolygonCollider2D:
+  m_Constraints: 4
+--- !u!61 &4759406457818711976
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,17 +105,10 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.33839172, y: 0.50371677}
-      - {x: 0.006790206, y: 1.1154333}
-      - {x: -0.337593, y: 0.5036822}
-      - {x: -0.5014217, y: 0.5031752}
-      - {x: -0.5060962, y: -0.50325173}
-      - {x: 0.5043586, y: -0.50103533}
-      - {x: 0.49764606, y: 0.50311697}
-  m_UseDelaunayMesh: 0
---- !u!114 &-8710382555524505888
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1251195007403376681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,19 +117,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 211828437710483745}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8589a428daba4294197ccbf543ba297d, type: 3}
+  m_Script: {fileID: 11500000, guid: 798286804d4a29946a73861ae670e8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderSpeed: 1
-  chaseSpeed: 2
-  minWanderTime: 0.5
-  maxWanderTime: 2
-  sightDistance: 20
-  strikeDistance: 1
-  rotationSpeed: 90
-  willAttackLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  moveSpeed: 3.5
 --- !u!1 &755709874737544311
 GameObject:
   m_ObjectHideFlags: 0
