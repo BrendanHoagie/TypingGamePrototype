@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c7881146556f174fa00ace46bfba606, type: 3}
   m_Name: OrangeWizard
   m_EditorClassIdentifier: 
-  _shape: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  _shape: {fileID: 21300000, guid: ca947ef939ae30942a773d6f31eccaa3, type: 3}
   _word:
   - phoi
-  _color: {r: 1, g: 0.4445595, b: 0, a: 1}
+  _color: {r: 1, g: 1, b: 1, a: 1}
   _shapeType: 0
