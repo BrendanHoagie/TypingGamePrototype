@@ -101,6 +101,7 @@ public class EnemyMaker : MonoBehaviour
             foreach (string triangleWord in currentTriangle.Word)
             {
                 string correctCombination = squareWord + triangleWord;
+                Debug.Log(correctCombination);
                 enemyCombinations[correctCombination] = enemy; 
             }
         }
