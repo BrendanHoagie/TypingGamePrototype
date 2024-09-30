@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         // cast spell
         if (Input.GetMouseButtonUp(0))
         {
-            if(GameObject.Find("EnemyManager").GetComponent<EnemyMaker>().ValidateString(buffer))
+            if(GameObject.Find("EnemyManager").GetComponent<WizardMaker>().ValidateString(buffer))
             {
                 print("Cast Successful!");
                 GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
