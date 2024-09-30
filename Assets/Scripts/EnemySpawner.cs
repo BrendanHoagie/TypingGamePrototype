@@ -8,11 +8,20 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<Wizards> squares;
     [SerializeField] private List<Wizards> triangles;
     [SerializeField] private Vector3 spawnPos = new Vector3(0,0,0);
-    [SerializeField] private Transform enemyParent; 
+    [SerializeField] private Transform enemyParent;
+    private float spawnTime = 5f;
+    private float curTime = 0f;
 
     // Update is called once per frame
     void Update()
     {
+        curTime += Time.deltaTime;
+        print("curTime is " + curTime);
+        if (curTime > spawnTime)
+        {
+            SpawnEnemy();
+            curTime = 0f;
+        }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             SpawnEnemy();

@@ -11,21 +11,51 @@ public class EnemyMaker : MonoBehaviour
     private Wizards currentTriangle; 
 
     private Dictionary<string, GameObject> enemyCombinations = new Dictionary<string, GameObject>();
+    private Dictionary<string, bool> validCombinations = new Dictionary<string, bool>();
     [SerializeField] private GameObject enemyPrefab;
+
+    [SerializeField] private float spawnTime = 5f;
+    private float curTime = 0f;
+
+    void Start()
+    {
+        // populate dictionary of all possible combinations for checking firing
+        // I am sorry for what I've done here
+        for (int i = 0; i < squares.Count; i++)
+        {
+            Wizards curSquare = squares[i];
+            for (int j = 0; j < triangles.Count; j++)
+            {
+                Wizards curTriangle = triangles[j];
+                foreach (string squareWord in curSquare.Word)
+                {
+                    foreach (string triangleWord in curTriangle.Word)
+                    {
+                        string newWord = squareWord + triangleWord;
+                        if (validCombinations.ContainsKey(newWord)) continue;
+                        validCombinations[newWord] = true;
+                    }
+                }
+            }
+        }
+    }
 
     void Update()
     {
+        curTime += Time.deltaTime;
+        if (curTime > spawnTime)
+        {
+            SpawnEnemy();
+            curTime = 0f;
+        }
+
+        // for debugging
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             SpawnEnemy();
         }
     }
 
-    public void GenerateRandomCombination()
-    {
-        currentSquare = squares[Random.Range(0, squares.Count)];
-        currentTriangle = triangles[Random.Range(0, triangles.Count)];
-    }
 
     public void SpawnEnemy()
     {
@@ -38,6 +68,12 @@ public class EnemyMaker : MonoBehaviour
         StoreCombination(currentEnemy);
 
         Debug.Log("Enemy spawned with dynamically set square and triangle!");
+    }
+
+    public void GenerateRandomCombination()
+    {
+        currentSquare = squares[Random.Range(0, squares.Count)];
+        currentTriangle = triangles[Random.Range(0, triangles.Count)];
     }
 
     private void SetupShapes(GameObject enemy)
@@ -82,5 +118,18 @@ public class EnemyMaker : MonoBehaviour
         {
             Debug.Log("No enemy found with combination: " + combination);
         }
+    }
+
+    public bool ValidateString(string str)
+    {
+        try
+        {
+            return validCombinations[str];
+        }
+        catch
+        {
+            return false;
+        }
+        
     }
 }

@@ -12,8 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 mousePosition;
 
     // typing
-    [SerializeField] private float textHoverDistance = 0f;
-    private string[] words = { "time", "year", "people", "way", "day", "man", "thing", "woman", "life", "child", "world", "school", "state", "family", "student", "group", "country", "problem", "hand", "part", "place", "case", "week", "company", "system", "program", "question", "work", "government", "number", "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact", "month", "lot", "right", "study", "book", "eye", "job", "word", "business", "issue", "side", "kind", "head", "house", "service", "friend", "father", "power", "hour", "game", "line", "end", "member", "law", "car", "city", "community", "name", "president", "team", "minute", "idea", "kid", "body", "information", "back", "parent", "face", "others", "level", "office", "door", "health", "person", "art", "war", "history", "party", "result", "change", "morning", "reason", "research", "girl", "guy", "moment", "air", "teacher", "force", "education" };
+    [SerializeField] private float textHoverDistance = 2f;
     private string buffer = "";
     [SerializeField] private GameObject floatingTextPrefab;
     private GameObject floatingText = null;
@@ -42,52 +41,54 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        print("(" + aimDirection.x + ", " + aimDirection.y + ") angle = " + aimAngle);
         rb.rotation = aimAngle;
     }
 
     void RunTyping()
     {
+        // cast spell
+        if (Input.GetMouseButtonUp(0))
+        {
+            if(GameObject.Find("EnemyManager").GetComponent<EnemyMaker>().ValidateString(buffer))
+            {
+                print("Cast Successful!");
+                GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+                projectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * projectileSpeed, ForceMode2D.Impulse);
+
+                // todo: Fix hit system
+                // see comment in ProjectileController's OnCollisionEnter2D method
+                projectile.GetComponent<ProjectileController>().SetIncantation(buffer);
+            }
+            // todo: take damage here
+            else
+            {
+                print("Cast fail!");
+            }
+
+            buffer = "";
+        }
+
+        // delete
+        else if (Input.GetMouseButtonDown(1)) buffer = "";
+
+        // build buffer
         foreach (char c in Input.inputString)
         {
             switch (c)
             {
-                // cast
+                // disabled keys -> should probably put all escape sequences here
+                // and possibly space + numbers? tbd.
                 case '\n':
                 case '\r':
-                    if (wordCompare(buffer))
-                    {
-                        print("Cast Successful!");
-                        GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
-                        projectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * projectileSpeed, ForceMode2D.Impulse);
-                    }
-                    else
-                    {
-                        print("Cast Fail!");
-                    }
-                    buffer = "";
-                    break;
-
-                // delete
                 case '\b':
-                    buffer = "";
                     break;
 
                 default:
-                    buffer += c;
+                    buffer += char.ToLower(c);
                     break;
             }
         }
         DisplayText(buffer);
-    }
-
-    private bool wordCompare(string word)
-    {
-        foreach (string curWord in words) 
-        {
-            if (word == curWord) return true;
-        }
-        return false;
     }
 
     void DisplayText(string text)
