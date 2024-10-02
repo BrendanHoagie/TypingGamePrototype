@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SpellStructure {Eement, Projectile}
 [CreateAssetMenu]
 public class Spell : ScriptableObject
 {
@@ -21,4 +20,6 @@ public class Spell : ScriptableObject
     [SerializeField]
     private Color _element;
     public Color Element { get => _element; }
+
+    public enum SpellStructure { Element, Projectile }
 }
