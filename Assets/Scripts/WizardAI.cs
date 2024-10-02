@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WizardAI : MonoBehaviour
 {
     public float moveSpeed = 2f;
+    [SerializeField] private NavMeshAgent wizardAgent;
     public List<string> correctCombination = new List<string>();
     private Transform target;
     void Start()
@@ -13,11 +15,23 @@ public class WizardAI : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
+    private void Awake()
+    {
+        // Get NavMesh Agent component and disable rotation and axis updates
+        wizardAgent = GetComponent<NavMeshAgent>();
+        wizardAgent.updateRotation = false;
+        wizardAgent.updateUpAxis = false;
+    }
+
     void Update()
     {
         if (target)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+            // Old vector based movement
+            //transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+
+            // AI Pathfinding movement
+            wizardAgent.SetDestination(new Vector3(target.position.x, target.position.y, transform.position.z));
         }
     }
 

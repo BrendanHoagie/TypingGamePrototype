@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
 
     // movement
     [SerializeField] private float moveSpeed;
+    [SerializeField] private NavMeshAgent agent;
+    private Vector3 target;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
     private Vector2 mousePosition;
@@ -28,20 +31,44 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Awake()
+    {
+        // Get NavMesh Agent component and disable rotation and axis updates
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
+
 
     void Update()
     {
-        moveDirection = new Vector2(Input.GetAxisRaw("HorizontalArrows"), Input.GetAxisRaw("VerticalArrows")).normalized;
+        // Old keyboard based movement
+        // moveDirection = new Vector2(Input.GetAxisRaw("HorizontalArrows"), Input.GetAxisRaw("VerticalArrows")).normalized;
+
+        // Point and click movement
+        SetTargetPosition();
+        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RunTyping();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        // Old keyboard based movement
+        // rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+
         Vector2 aimDirection = mousePosition - rb.position;
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;
+    }
+
+    void SetTargetPosition()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
     }
 
     void RunTyping()
@@ -68,8 +95,8 @@ public class PlayerController : MonoBehaviour
             buffer = "";
         }
 
-        // delete
-        else if (Input.GetMouseButtonDown(1)) buffer = "";
+        // delete is removed and Right Mouse button is replaced for movement
+        // else if (Input.GetMouseButtonDown(1)) buffer = "";
 
         // build buffer
         foreach (char c in Input.inputString)
