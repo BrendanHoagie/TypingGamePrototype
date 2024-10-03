@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float projectileSpeed;
+    [SerializeField] private SpellMaker spellMaker;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spellMaker = GameObject.Find("Game Manager").GetComponent<SpellMaker>();
     }
 
 
@@ -49,15 +51,16 @@ public class PlayerController : MonoBehaviour
         // cast spell
         if (Input.GetMouseButtonUp(0))
         {
-            if(GameObject.Find("EnemyManager").GetComponent<WizardMaker>().ValidateString(buffer))
+            if(GameObject.Find("Game Manager").GetComponent<SpellMaker>().ValidateString(buffer))
             {
                 print("Cast Successful!");
-                GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
-                projectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * projectileSpeed, ForceMode2D.Impulse);
+                spellMaker.CreateSpell(buffer, spawnPoint, projectileSpeed);
+                /*GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+                projectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * projectileSpeed, ForceMode2D.Impulse);*/
 
                 // todo: Fix hit system
                 // see comment in ProjectileController's OnCollisionEnter2D method
-                projectile.GetComponent<ProjectileController>().SetIncantation(buffer);
+                //projectile.GetComponent<ProjectileController>().SetIncantation(buffer);
             }
             // todo: take damage here
             else

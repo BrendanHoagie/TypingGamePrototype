@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SpellStructure {None, Element, Projectile}
+public enum Element {None, Fire, Ice}
+public enum Projectile {None, Bolt, Blast}
 [CreateAssetMenu]
 public class Spell : ScriptableObject
 {
     [SerializeField]
-    private Sprite _projectileType;
-    public Sprite ProjectileType { get => _projectileType; }
+    private Sprite _projectileShape;
+    public Sprite ProjectileShape { get => _projectileShape; }
 
     [SerializeField]
     private string _spellPart;
@@ -18,8 +21,14 @@ public class Spell : ScriptableObject
     public ParticleSystem ParticleSystem { get => _particleSystem; }
 
     [SerializeField]
-    private Color _element;
-    public Color Element { get => _element; }
+    private SpellStructure _spellStructure;
+    public SpellStructure SpellStructure { get => _spellStructure; }
 
-    public enum SpellStructure { Element, Projectile }
+    [SerializeField]
+    private Element _element;
+    public Element Element { get => _element; }
+
+    [SerializeField]
+    private Projectile _projectile;
+    public Projectile Projectile { get => _projectile; }
 }
