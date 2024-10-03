@@ -35,7 +35,6 @@ public class SpellMaker : MonoBehaviour
             if (spellInput.Contains(element.SpellPart))
             {
                 currentElement = element;
-                print(element.SpellPart);
                 break;
             }
         }
@@ -45,7 +44,6 @@ public class SpellMaker : MonoBehaviour
             if (spellInput.Contains(projectile.SpellPart))
             {
                 currentProjectile = projectile;
-                print(projectile.SpellPart);
                 break;
             }
         }
