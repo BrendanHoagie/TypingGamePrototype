@@ -7195,6 +7195,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1776632926089573782, guid: d94795366f42b5243bf29432951d2c1f, type: 3}
   spawnPoint: {fileID: 1210183100}
   projectileSpeed: 25
+  spellMaker: {fileID: 0}
 --- !u!212 &479974364
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7779,8 +7780,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1122204359}
   - component: {fileID: 1122204360}
+  - component: {fileID: 1122204361}
   m_Layer: 0
-  m_Name: EnemyManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7822,7 +7824,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e649dc3a467e26048a9be11a0d0d26a9, type: 2}
   - {fileID: 11400000, guid: 3579c8f49545cb24a8d6cc895abfe8d0, type: 2}
   enemyPrefab: {fileID: 211828437710483745, guid: 6c3071a178f25714a8bf834237e577c0, type: 3}
-  spawnTime: 10
+  spawnTime: 30
+--- !u!114 &1122204361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122204357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a399acdc4f8864387668d33551b6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elements:
+  - {fileID: 11400000, guid: 4a3caba2ca42079489258629825765c4, type: 2}
+  - {fileID: 11400000, guid: cb970bd0be0ce5d4dabf5a30aa14ef02, type: 2}
+  projectiles:
+  - {fileID: 11400000, guid: 682d1af7b4e537444bed18e4e3303ce0, type: 2}
+  - {fileID: 11400000, guid: ae8d4722d591d3d49ae4081bf4d9b64b, type: 2}
+  projectilePrefab: {fileID: 1776632926089573782, guid: d94795366f42b5243bf29432951d2c1f, type: 3}
 --- !u!1 &1210183099
 GameObject:
   m_ObjectHideFlags: 0
