@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 mousePosition;
 
+    // health
+    private int hitPoints = 3;
+
     // typing
     [SerializeField] private float textHoverDistance = 2f;
     private string buffer = "";
@@ -27,6 +30,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float spellLockoutTime = 0f;
     private float currentTime = 0f;
 
+
+    public float GetLockoutTime()
+    {
+        return spellLockoutTime;
+    }
+    public float GetCurrentTime()
+    {
+        return currentTime;
+    }
+
+    public int GetHP()
+    {
+        return hitPoints;
+    }
+
+    public void TakeDamage()
+    {
+        hitPoints -= 1;
+        if (hitPoints == 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -76,6 +102,7 @@ public class PlayerController : MonoBehaviour
             DisplayText(buffer);
             return;
         }
+        currentTime = spellLockoutTime;
 
         // cast spell
         if (Input.GetMouseButtonUp(0))
@@ -87,22 +114,11 @@ public class PlayerController : MonoBehaviour
             currentTime = 0;
         }
 
-        // build buffer
+        // build buffer, only include A-Z & a-z
         foreach (char c in Input.inputString)
         {
-            switch (c)
-            {
-                // disabled keys -> should probably put all escape sequences here
-                // and possibly space + numbers? tbd.
-                case '\n':
-                case '\r':
-                case '\b':
-                    break;
-
-                default:
-                    buffer += char.ToLower(c);
-                    break;
-            }
+            int asciiVersion = (int) c;
+            if ((asciiVersion >= 65 && asciiVersion <= 90) || (asciiVersion >= 97 && asciiVersion <= 112)) buffer += char.ToLower(c);
         }
         DisplayText(buffer);
     }
