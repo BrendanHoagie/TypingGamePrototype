@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,9 +11,11 @@ public class WizardAI : MonoBehaviour
     [SerializeField] private NavMeshAgent wizardAgent;
     public List<string> correctCombination = new List<string>();
     private Transform target;
+    private PlayerController playerController;
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     private void Awake()
@@ -52,6 +55,8 @@ public class WizardAI : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Destroy(collision.gameObject);
+            playerController.TakeDamage();
+
         } 
         if (collision.gameObject.tag == "Spell")
         {

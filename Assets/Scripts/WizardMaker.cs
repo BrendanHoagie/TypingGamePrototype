@@ -55,8 +55,6 @@ public class WizardMaker : MonoBehaviour
 
         SetupShapes(currentWizard);
         StoreCombination(currentWizard);
-
-        Debug.Log("Enemy spawned with dynamically set square and triangle!");
     }
 
     public void GenerateRandomCombination()
