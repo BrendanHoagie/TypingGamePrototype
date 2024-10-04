@@ -7196,6 +7196,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1210183100}
   projectileSpeed: 25
   spellMaker: {fileID: 0}
+  spellLockoutTime: 1.5
 --- !u!212 &479974364
 SpriteRenderer:
   m_ObjectHideFlags: 0

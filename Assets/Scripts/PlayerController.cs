@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     private Vector3 target;
     private Rigidbody2D rb;
-    private Vector2 moveDirection;
     private Vector2 mousePosition;
 
     // typing
@@ -25,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private SpellMaker spellMaker;
+    [SerializeField] private float spellLockoutTime = 0f;
+    private float currentTime = 0f;
 
 
     void Start()
@@ -44,9 +45,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Old keyboard based movement
-        // moveDirection = new Vector2(Input.GetAxisRaw("HorizontalArrows"), Input.GetAxisRaw("VerticalArrows")).normalized;
-
         // Point and click movement
         SetTargetPosition();
         agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
@@ -57,12 +55,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Old keyboard based movement
-        // rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-
         Vector2 aimDirection = mousePosition - rb.position;
-        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = aimAngle;
+        rb.rotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
     }
 
     void SetTargetPosition()
@@ -75,31 +69,23 @@ public class PlayerController : MonoBehaviour
 
     void RunTyping()
     {
+        // punishment for miscasting -> can't type for a lockout time
+        if (currentTime < spellLockoutTime)
+        {
+            currentTime += Time.deltaTime;
+            DisplayText(buffer);
+            return;
+        }
+
         // cast spell
         if (Input.GetMouseButtonUp(0))
         {
-            if(GameObject.Find("Game Manager").GetComponent<SpellMaker>().ValidateString(buffer))
-            {
-                print("Cast Successful!");
-                spellMaker.CreateSpell(buffer, spawnPoint, projectileSpeed);
-                /*GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
-                projectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * projectileSpeed, ForceMode2D.Impulse);*/
-
-                // todo: Fix hit system
-                // see comment in ProjectileController's OnCollisionEnter2D method
-                //projectile.GetComponent<ProjectileController>().SetIncantation(buffer);
-            }
-            // todo: take damage here
-            else
-            {
-                print("Cast fail!");
-            }
+            print("Cast Successful!");
+            spellMaker.CreateSpell(buffer, spawnPoint, projectileSpeed);
 
             buffer = "";
+            currentTime = 0;
         }
-
-        // delete is removed and Right Mouse button is replaced for movement
-        // else if (Input.GetMouseButtonDown(1)) buffer = "";
 
         // build buffer
         foreach (char c in Input.inputString)

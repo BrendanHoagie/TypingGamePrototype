@@ -1,6 +1,16 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+
+enum variants
+{
+    BASE = 0,
+    CROOKED = 1,
+    UPSIDE_DOWN = 2,
+    UPSIDE_DOWN_CROOKED = 3
+}
 
 public class WizardMaker : MonoBehaviour
 {
@@ -8,37 +18,16 @@ public class WizardMaker : MonoBehaviour
     public List<Wizards> triangles; 
 
     private Wizards currentSquare;  
-    private Wizards currentTriangle; 
+    private Wizards currentTriangle;
+    private int numVariants = Enum.GetNames(typeof(variants)).Length;
+    private variants currentVariant;
 
     private Dictionary<string, GameObject> wizardCombinations = new Dictionary<string, GameObject>();
-    private Dictionary<string, bool> validCombinations = new Dictionary<string, bool>();
     [SerializeField] private GameObject enemyPrefab;
 
     [SerializeField] private float spawnTime = 5f;
     private float curTime = 0f;
 
-    void Start()
-    {
-        // populate dictionary of all possible combinations for checking firing
-        // I am sorry for what I've done here
-        for (int i = 0; i < squares.Count; i++)
-        {
-            Wizards curSquare = squares[i];
-            for (int j = 0; j < triangles.Count; j++)
-            {
-                Wizards curTriangle = triangles[j];
-                foreach (string squareWord in curSquare.Word)
-                {
-                    foreach (string triangleWord in curTriangle.Word)
-                    {
-                        string newWord = squareWord + triangleWord;
-                        if (validCombinations.ContainsKey(newWord)) continue;
-                        validCombinations[newWord] = true;
-                    }
-                }
-            }
-        }
-    }
 
     void Update()
     {
@@ -72,8 +61,9 @@ public class WizardMaker : MonoBehaviour
 
     public void GenerateRandomCombination()
     {
-        currentSquare = squares[Random.Range(0, squares.Count)];
-        currentTriangle = triangles[Random.Range(0, triangles.Count)];
+        currentSquare = squares[UnityEngine.Random.Range(0, squares.Count)];
+        currentTriangle = triangles[UnityEngine.Random.Range(0, triangles.Count)];
+        currentVariant = (variants)UnityEngine.Random.Range(0, numVariants);
     }
 
     private void SetupShapes(GameObject enemy)
@@ -89,6 +79,32 @@ public class WizardMaker : MonoBehaviour
         triangleRenderer.sprite = currentTriangle.Shape;
         triangleRenderer.color = currentTriangle.Color;
 
+        // debug
+        print("Current variant is " + Enum.GetNames(typeof(variants))[(int) currentVariant]);
+
+        // move hat (square) depending on variant
+        switch (currentVariant)
+        {
+            // keep defaults if base
+            case variants.BASE:
+                break;
+
+            // rotate right 90 degrees
+            case variants.CROOKED:
+                squareRenderer.transform.localRotation = Quaternion.Euler(0f, 0f, -90f);
+                break;
+
+            // flip upside down
+            case variants.UPSIDE_DOWN:
+                squareRenderer.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+                break;
+
+            // flip upside down and rotate right 90 degrees
+            case variants.UPSIDE_DOWN_CROOKED:
+                squareRenderer.transform.localRotation = Quaternion.Euler(-180f, 0f, 90f);
+                break;
+        }
+
         // Adjust triangle position to be above the square
         float squareHeight = squareRenderer.bounds.size.y;
         triangleTransform.localPosition = new Vector3(0, squareHeight / 2, 0);
@@ -100,7 +116,7 @@ public class WizardMaker : MonoBehaviour
         {
             foreach (string triangleWord in currentTriangle.Word)
             {
-                string correctCombination = squareWord + triangleWord;
+                string correctCombination = ConvertSpell(squareWord, triangleWord, currentVariant);
                 enemy.GetComponent<WizardAI>().setCorrectCombination(correctCombination);
                 Debug.Log(correctCombination);
                 wizardCombinations[correctCombination] = enemy; 
@@ -121,17 +137,36 @@ public class WizardMaker : MonoBehaviour
             Debug.Log("No enemy found with combination: " + combination);
         }
     }
-
-    public bool ValidateString(string str)
+    
+    private string ConvertSpell(string prefix, string suffix, variants variant)
     {
-        try
+        switch (variant)
         {
-            return validCombinations[str];
+
+            // swap prefix & suffix
+            case variants.CROOKED:
+                return suffix + prefix;
+
+            // reverse prefix + reverse suffix
+            case variants.UPSIDE_DOWN: 
+                return ReverseString(prefix) + ReverseString(suffix);
+
+            // reverse prefix + reverse suffix and swap them
+            case variants.UPSIDE_DOWN_CROOKED:
+                return ReverseString(suffix) + ReverseString(prefix);
+
+            // variants.BASE - no change
+            default:
+                return prefix + suffix;
+
         }
-        catch
-        {
-            return false;
-        }
-        
     }
+
+    private string ReverseString(string str) 
+    {
+        char[] charArray = str.ToCharArray();
+        Array.Reverse(charArray);
+        return new string(charArray);
+    }
+
 }

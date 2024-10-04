@@ -27,9 +27,6 @@ public class WizardAI : MonoBehaviour
     {
         if (target)
         {
-            // Old vector based movement
-            //transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-
             // AI Pathfinding movement
             wizardAgent.SetDestination(new Vector3(target.position.x, target.position.y, transform.position.z));
         }

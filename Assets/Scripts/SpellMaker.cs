@@ -10,23 +10,7 @@ public class SpellMaker : MonoBehaviour
     private Spell currentElement;
     private Spell currentProjectile;
 
-    private Dictionary<string, GameObject> completedSpells = new Dictionary<string, GameObject>();
-    private Dictionary<string, bool> validCombinations = new Dictionary<string, bool>();
     [SerializeField] private GameObject projectilePrefab;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        foreach (Spell element in elements)
-        {
-            foreach (Spell projectile in projectiles)
-            {
-                string combinationKey = element.SpellPart + projectile.SpellPart;
-                if (validCombinations.ContainsKey(combinationKey)) continue;
-                validCombinations[combinationKey] = true;
-            }
-        }
-    }
 
     public void CreateSpell(string spellInput, Transform spawnPoint, float speed)
     {
@@ -46,6 +30,14 @@ public class SpellMaker : MonoBehaviour
                 currentProjectile = projectile;
                 break;
             }
+        }
+
+        // spell type or element that doesn't exist
+        // todo: ideally this would shoot a generic crap spell, to be added later
+        if (!currentProjectile || !currentElement)
+        {
+            print("Failed cast!");
+            return;
         }
 
         GameObject spellProjectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
@@ -83,17 +75,6 @@ public class SpellMaker : MonoBehaviour
                 return Color.cyan;
             default:
                 return Color.white;
-        }
-    }
-
-    public bool ValidateString(string spellInput)
-    {
-        try
-        {
-            return validCombinations.ContainsKey(spellInput);
-        }
-        catch { 
-            return false; 
         }
     }
 }
