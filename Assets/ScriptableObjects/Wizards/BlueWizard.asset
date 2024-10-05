@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c7881146556f174fa00ace46bfba606, type: 3}
-  m_Name: OrangeWizard
+  m_Name: BlueWizard
   m_EditorClassIdentifier: 
-  _shape: {fileID: 21300000, guid: ca947ef939ae30942a773d6f31eccaa3, type: 3}
+  _shape: {fileID: 21300000, guid: 8ddfca28cdfbce5479cb6fa7ede12da5, type: 3}
   _word:
-  - phoi
-  _color: {r: 1, g: 0.5859168, b: 0.1273585, a: 1}
+  - ktlu
+  _color: {r: 0.18431371, g: 0.7714673, b: 0.94509804, a: 1}
   _shapeType: 2
   _stopRadius: 0

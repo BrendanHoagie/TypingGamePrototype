@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ShapeType {Square, Triangle}
+public enum ShapeType {Hat, Staff, Color}
 [CreateAssetMenu]
 public class Wizards : ScriptableObject
 {
