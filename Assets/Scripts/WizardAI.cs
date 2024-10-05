@@ -12,11 +12,9 @@ public class WizardAI : MonoBehaviour
     public List<string> correctCombination = new List<string>();
 
     private Transform target;
-<<<<<<< Updated upstream
     private PlayerController playerController;
-=======
     [SerializeField] private NavMeshAgent wizardAgent;
->>>>>>> Stashed changes
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -35,10 +33,8 @@ public class WizardAI : MonoBehaviour
     {
         if (target)
         {
-<<<<<<< Updated upstream
             // AI Pathfinding movement
             wizardAgent.SetDestination(new Vector3(target.position.x, target.position.y, transform.position.z));
-=======
             float distanceToPlayer = Vector3.Distance(target.position, transform.position);
 
             if (distanceToPlayer > stopRadius)
@@ -50,8 +46,6 @@ public class WizardAI : MonoBehaviour
                 wizardAgent.ResetPath();
                 wizardAgent.velocity = Vector3.zero;
             }
-            
->>>>>>> Stashed changes
         }
     }
 

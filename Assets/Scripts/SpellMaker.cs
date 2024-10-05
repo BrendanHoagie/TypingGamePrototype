@@ -56,11 +56,12 @@ public class SpellMaker : MonoBehaviour
         {
             Rigidbody2D rb = spellProjectile.GetComponent<Rigidbody2D>();
             spellProjectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * speed, ForceMode2D.Impulse);
-        } else if (currentProjectile.Projectile == Projectile.Blast)
+        } 
+        else if (currentProjectile.Projectile == Projectile.Blast)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spellProjectile.transform.position = mousePos;
-            spellProjectile.transform.localScale = new Vector3(5f, 5f, 5f);
+            spellProjectile.transform.localScale = new Vector3(2f, 2f, 2f);
             Destroy(spellProjectile, 0.5f); //Despawn after a set time regarldess of hit or not
         }
     }
