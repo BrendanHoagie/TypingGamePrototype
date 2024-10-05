@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         foreach (char c in Input.inputString)
         {
             int asciiVersion = (int) c;
-            if ((asciiVersion >= 65 && asciiVersion <= 90) || (asciiVersion >= 97 && asciiVersion <= 112)) buffer += char.ToLower(c);
+            if ((asciiVersion >= 65 && asciiVersion <= 90) || (asciiVersion >= 97 && asciiVersion <= 122)) buffer += char.ToLower(c);
         }
         DisplayText(buffer);
     }

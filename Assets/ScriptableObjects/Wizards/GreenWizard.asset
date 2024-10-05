@@ -16,5 +16,6 @@ MonoBehaviour:
   _word:
   - ktlu
   - phoi
-  _color: {r: 1, g: 1, b: 1, a: 1}
-  _shapeType: 0
+  _color: {r: 0.3654745, g: 0.9150943, b: 0.31510323, a: 1}
+  _shapeType: 2
+  _stopRadius: 0
