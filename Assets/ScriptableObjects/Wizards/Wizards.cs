@@ -23,5 +23,7 @@ public class Wizards : ScriptableObject
     private ShapeType _shapeType;
     public ShapeType ShapeType { get => _shapeType; }
 
-
+    [SerializeField]
+    private float _stopRadius;
+    public float StopRadius { get => _stopRadius;}
 }
