@@ -17,6 +17,8 @@ public enum WizardBehavior
 
 public class WizardAI : MonoBehaviour
 {
+    System.Random random = new System.Random();
+
     public float moveSpeed = 2f;
     public float playerDamageRadius = 2.0f;
     public List<string> correctCombination = new List<string>();
@@ -26,13 +28,14 @@ public class WizardAI : MonoBehaviour
     private float curTime = 0f;
     [SerializeField] private float aiDecisionTime = 5f;
     private WizardBehavior behavior;
-    System.Random random = new System.Random();
     private bool currentlyCasting = false;
+   
     // this part is bad (should pull from children in setup and store as array) but I can't get to work any other way
     public Transform hat;
     public Transform staff;
     public Transform body;
     public Transform robe;
+    
     [SerializeField] private Transform spellSpawnPoint;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed;
@@ -40,11 +43,11 @@ public class WizardAI : MonoBehaviour
     private GameObject floatingText = null;
     private float textHoverDistance = 2f;
     private string spellText;
+    private SpellMaker spellMaker;
+
     [SerializeField] private float playerIFrameLength = 3f;
     private float playerIFrameTimer;
     private bool playerCanBeHit = true;
-    private SpellMaker spellMaker;
-
 
     private Transform target;
     private PlayerController playerController;
@@ -95,23 +98,23 @@ void Start()
                     break;
             }
 
-            // check for collision manually since colliders aren't working
-            float distanceToPlayer = Vector3.Distance(target.position, transform.position);
-            if (distanceToPlayer < playerDamageRadius)
-            {
-                // no i frames
-                if (playerCanBeHit)
-                {
-                    playerController.TakeDamage();
-                    playerIFrameTimer = playerIFrameLength;
-                    playerCanBeHit = false;
-                    return;
-                }
+            /* // check for collision manually since colliders aren't working
+             float distanceToPlayer = Vector3.Distance(target.position, transform.position);
+             if (distanceToPlayer < playerDamageRadius)
+             {
+                 // no i frames
+                 if (playerCanBeHit)
+                 {
+                     playerController.TakeDamage();
+                     playerIFrameTimer = playerIFrameLength;
+                     playerCanBeHit = false;
+                     return;
+                 }
 
-                // check if still in i frames
-                playerIFrameTimer -= Time.deltaTime;
-                if (playerIFrameTimer <= 0f) playerCanBeHit = true;
-            }
+                 // check if still in i frames
+                 playerIFrameTimer -= Time.deltaTime;
+                 if (playerIFrameTimer <= 0f) playerCanBeHit = true;
+             }*/
             return;
         }
 

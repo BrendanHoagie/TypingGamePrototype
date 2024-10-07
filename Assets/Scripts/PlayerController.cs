@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-
     // movement
     [SerializeField] private float moveSpeed;
     [SerializeField] private NavMeshAgent agent;
@@ -30,6 +29,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float spellLockoutTime = 0f;
     private float currentTime = 0f;
 
+    // ifram information
+    [SerializeField] private float playerIFrameLength = 3f;
+    [SerializeField] private float playerIFrameDeltaTime = 0.15f;
+    private float playerIFrameTimer;
+    private bool playerCanBeHit = true;
+
+    //model info
+    private GameObject model;
+    private Vector3 scale = new Vector3(0.25f, 0.25f, 0.25f);
 
     public float GetLockoutTime()
     {
@@ -64,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spellMaker = GameObject.Find("Game Manager").GetComponent<SpellMaker>();
+        model = GameObject.Find("Goblin Sprite");
     }
 
     private void Awake()
@@ -151,9 +160,42 @@ public class PlayerController : MonoBehaviour
         print("collision detected- " + collision.ToString());
         if (collision.gameObject.tag == "Spell")
         {
-            TakeDamage();
-            Destroy(collision.gameObject);
+            if (playerCanBeHit)
+            {
+                TakeDamage();
+                StartCoroutine(IFrames());
+                return;
+            }
+        }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (playerCanBeHit)
+            {
+                TakeDamage();
+                StartCoroutine(IFrames());
+                return;
+            }
         }
     }
     
+    private IEnumerator IFrames()
+    {
+
+        print("Player can be hit");
+        playerCanBeHit = false;
+        for (float i = 0; i < playerIFrameLength; i+= playerIFrameDeltaTime)
+        {
+            if (model.transform.localScale == scale)
+            {
+                model.transform.localScale = Vector3.zero;
+            } else
+            {
+                model.transform.localScale = scale;
+            }
+            yield return new WaitForSecondsRealtime(playerIFrameDeltaTime);
+        }
+        model.transform.localScale = scale;
+        playerCanBeHit = true;
+    }
 }
+

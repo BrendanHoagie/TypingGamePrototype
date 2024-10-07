@@ -7665,6 +7665,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 1210183100}
   projectileSpeed: 25
   spellLockoutTime: 3
+  playerIFrameLength: 3
+  playerIFrameDeltaTime: 0.15
 --- !u!4 &479974365
 Transform:
   m_ObjectHideFlags: 0

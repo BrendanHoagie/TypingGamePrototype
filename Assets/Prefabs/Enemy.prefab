@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 211828437710483745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.17, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -49,7 +49,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211828437710483745}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -100,9 +100,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.35541606, y: 0}
   serializedVersion: 2
-  m_Radius: 1.22
+  m_Radius: 1.5754161
 --- !u!114 &1251195007403376681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   projectileSpeed: 25
   floatingTextPrefab: {fileID: 286143909414172042, guid: 469baf230d68b1e439ffceaf1ca96865, type: 3}
   playerIFrameLength: 2.5
-  gameManager: {fileID: 0}
   wizardAgent: {fileID: 0}
 --- !u!195 &-4419632731626408590
 NavMeshAgent:
