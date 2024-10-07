@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 265803806}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7610,6 +7610,7 @@ GameObject:
   - component: {fileID: 479974362}
   - component: {fileID: 479974367}
   - component: {fileID: 479974368}
+  - component: {fileID: 479974370}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -7663,7 +7664,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1776632926089573782, guid: d94795366f42b5243bf29432951d2c1f, type: 3}
   spawnPoint: {fileID: 1210183100}
   projectileSpeed: 25
-  spellMaker: {fileID: 0}
   spellLockoutTime: 3
 --- !u!4 &479974365
 Transform:
@@ -7738,7 +7738,45 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.79
+--- !u!1839735485 &479974370
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479974361}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &485211421
 GameObject:
   m_ObjectHideFlags: 0
@@ -8556,7 +8594,7 @@ GameObject:
   - component: {fileID: 1122204361}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Untagged
+  m_TagString: Game Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8683,7 +8721,7 @@ Transform:
   m_GameObject: {fileID: 1210183099}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.69, z: 0}
+  m_LocalPosition: {x: 0, y: 0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

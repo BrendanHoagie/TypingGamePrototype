@@ -65,9 +65,14 @@ public class SpellMaker : MonoBehaviour
             spellProjectile.transform.localScale = new Vector3(2f, 2f, 2f);
             Destroy(spellProjectile, 0.5f); //Despawn after a set time regarldess of hit or not
         }
+        else if (currentProjectile.Projectile == Projectile.Barrage)
+        {
+            Rigidbody2D rb = spellProjectile.GetComponent<Rigidbody2D>();
+            spellProjectile.GetComponent<Rigidbody2D>().AddForce(spawnPoint.up * speed, ForceMode2D.Impulse);
+        }
     }
 
-    private Color GetElementColor(Element element)
+    public Color GetElementColor(Element element)
     {
         switch (element)
         {
@@ -75,6 +80,8 @@ public class SpellMaker : MonoBehaviour
                 return Color.red;
             case Element.Ice: 
                 return Color.cyan;
+            case Element.Rock:
+                return Color.gray;
             default:
                 return Color.white;
         }

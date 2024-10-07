@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float projectileSpeed;
-    [SerializeField] private SpellMaker spellMaker;
+    private SpellMaker spellMaker;
     [SerializeField] private float spellLockoutTime = 0f;
     private float currentTime = 0f;
 
@@ -48,9 +48,15 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         hitPoints -= 1;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().startRoutine = true;
         if (hitPoints == 0)
         {
             Destroy(gameObject);
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
         }
     }
 
@@ -72,10 +78,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Point and click movement
-        SetTargetPosition();
+        if (Input.GetMouseButtonDown(1))
+        {
+            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
         agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
 
+        // aiming
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // reset sprite so it doesn't turn with the rigid body
         gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
         RunTyping();
     }
@@ -86,13 +98,6 @@ public class PlayerController : MonoBehaviour
         rb.rotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
     }
 
-    void SetTargetPosition()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-    }
 
     void RunTyping()
     {
@@ -108,9 +113,7 @@ public class PlayerController : MonoBehaviour
         // cast spell
         if (Input.GetMouseButtonUp(0))
         {
-            print("Cast Successful!");
             spellMaker.CreateSpell(buffer, spawnPoint, projectileSpeed);
-
             buffer = "";
             currentTime = 0;
         }
@@ -139,4 +142,18 @@ public class PlayerController : MonoBehaviour
             floatingText.GetComponentInChildren<TextMesh>().text = text;
         }
     }
+
+    // Only triggers when a projectile hits it- weird?
+    // If this would work with the enemy collider we could rip
+    // out a lot of the stuff in WizardAI
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("collision detected- " + collision.ToString());
+        if (collision.gameObject.tag == "Spell")
+        {
+            TakeDamage();
+            Destroy(collision.gameObject);
+        }
+    }
+    
 }
