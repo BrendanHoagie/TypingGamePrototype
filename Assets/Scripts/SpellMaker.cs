@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellMaker : MonoBehaviour
@@ -36,7 +37,7 @@ public class SpellMaker : MonoBehaviour
         // todo: ideally this would shoot a generic crap spell, to be added later
         if (!currentProjectile || !currentElement)
         {
-            print("Failed cast!");
+            print("Failed cast- projectile: " + (!currentProjectile ? "none" : currentProjectile.name) + " element: " + (!currentElement ? "none" : currentElement.name));
             return;
         }
 

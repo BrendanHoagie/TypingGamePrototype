@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
         agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
         RunTyping();
     }
 

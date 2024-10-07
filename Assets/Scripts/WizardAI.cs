@@ -58,6 +58,7 @@ public class WizardAI : MonoBehaviour
     {
         if (correctCombination.Contains(input))
         {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>().startRoutine = true;
             Destroy(gameObject);
             Debug.Log("Enemy with combination " + input + " destroyed!");
         }
