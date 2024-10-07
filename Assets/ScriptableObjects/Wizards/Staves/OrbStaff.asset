@@ -15,7 +15,6 @@ MonoBehaviour:
   _shape: {fileID: 21300000, guid: 019135fae9fac5c4f9dd554659e0fdcd, type: 3}
   _word:
   - jyb
-  - mipn
   _color: {r: 1, g: 1, b: 1, a: 1}
   _shapeType: 1
   _stopRadius: 0

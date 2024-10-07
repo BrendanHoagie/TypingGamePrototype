@@ -8601,7 +8601,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d82d1dcfecc68064c8ef077149de5908, type: 2}
   - {fileID: 11400000, guid: 1cdf2c16a8b524a4c95004e3172c764b, type: 2}
   enemyPrefab: {fileID: 211828437710483745, guid: 6c3071a178f25714a8bf834237e577c0, type: 3}
-  spawnTime: 30
+  spawnTime: 30000
 --- !u!114 &1122204361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8617,9 +8617,11 @@ MonoBehaviour:
   elements:
   - {fileID: 11400000, guid: 4a3caba2ca42079489258629825765c4, type: 2}
   - {fileID: 11400000, guid: cb970bd0be0ce5d4dabf5a30aa14ef02, type: 2}
+  - {fileID: 11400000, guid: ff459b28ad960db4494dd27e5856da60, type: 2}
   projectiles:
   - {fileID: 11400000, guid: 682d1af7b4e537444bed18e4e3303ce0, type: 2}
   - {fileID: 11400000, guid: ae8d4722d591d3d49ae4081bf4d9b64b, type: 2}
+  - {fileID: 11400000, guid: a173f7c219e829a49aeb85548b962033, type: 2}
   projectilePrefab: {fileID: 1776632926089573782, guid: d94795366f42b5243bf29432951d2c1f, type: 3}
 --- !u!1 &1147819076
 GameObject:
