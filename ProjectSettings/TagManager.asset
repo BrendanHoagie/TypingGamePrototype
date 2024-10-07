@@ -9,6 +9,7 @@ TagManager:
   - Spell
   - Floor
   - Game Manager
+  - Enemy Spell
   layers:
   - Default
   - TransparentFX

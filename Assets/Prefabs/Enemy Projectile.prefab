@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8709376886684555924}
   - component: {fileID: 4903381632578524001}
   m_Layer: 0
-  m_Name: Projectile
-  m_TagString: Spell
+  m_Name: Enemy Projectile
+  m_TagString: Enemy Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
