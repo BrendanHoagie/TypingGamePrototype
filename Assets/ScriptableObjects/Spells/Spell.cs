@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpellStructure {None, Element, Projectile}
-public enum Element {None, Fire, Ice}
-public enum Projectile {None, Bolt, Blast}
+public enum Element {None, Fire, Ice, Rock}
+public enum Projectile {None, Bolt, Blast, Barrage}
 [CreateAssetMenu]
 public class Spell : ScriptableObject
 {
