@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         print("collision detected- " + collision.ToString());
-        if (collision.gameObject.tag == "Spell")
+        if (collision.gameObject.tag == "Enemy Spell")
         {
             TakeDamage();
             Destroy(collision.gameObject);
