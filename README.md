@@ -1,7 +1,7 @@
 # Info
 Prototype for GMAP377
-
 Prototype horde mode co-op typing game.
+Download the game from the [Doublin Game Website](https://brendanhoagie.github.io/Doublin-Website/#)
 
 # Controls
 ## Player 1
