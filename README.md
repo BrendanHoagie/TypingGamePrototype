@@ -5,8 +5,7 @@ Download the game from the [Doublin Game Website](https://brendanhoagie.github.i
 
 # Controls
 ## Player 1
-- move with arrow keys
-- aim with mouse
+- move & aim with mouse
 - left click to attempt to cast a spell
 - right click to cancel current spell attempt
 - all other alphanumeric keys to type a spell
